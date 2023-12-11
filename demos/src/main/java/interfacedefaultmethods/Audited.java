@@ -1,11 +1,10 @@
 package interfacedefaultmethods;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public interface Audited {
 
-    LocalDateTime getCreatedAt();
+    LocalDateTime getCreatedAt();//visszaadja, hogy mikor lett létrehozva
 
     default boolean createdAfter(LocalDateTime dateTime) {
         return getCreatedAt().isAfter(dateTime);
