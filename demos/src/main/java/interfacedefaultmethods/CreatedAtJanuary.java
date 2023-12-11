@@ -2,8 +2,7 @@ package interfacedefaultmethods;
 
 import java.time.LocalDateTime;
 
-//interfacet úgy tudunk tesztelni, hogy létrehozunk egy implementációt is
-public interface Audited {
+public interface CreatedAtJanuary {
 
     LocalDateTime getCreatedAt();//visszaadja, hogy mikor lett létrehozva
 
