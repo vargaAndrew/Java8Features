@@ -1,6 +1,7 @@
 package lambdastreams;
 
-public class NameCounterMod {
+public class NameCounterMod { //ez modifiable lesz nem uj peldanyt ad vissza, hanem a letezo objektumot fogja modositani
+    //pontosabban az allapotat fogja modositani.
 
     private int threePartName = 0;
 
@@ -14,12 +15,12 @@ public class NameCounterMod {
         this.twoPartName = twoPartName;
     }
 
-    public void add(Employee employee) {
+    public void add(Employee employee) {//void a vissyateresi erteke mivel nem uj objektumot hozunk letre, hanem az
+        // allapotat modositjuk
         if (employee.getName().split(" ").length == 2) {
-            twoPartName ++;
-        }
-        else {
-            threePartName ++;
+            twoPartName++;
+        } else {
+            threePartName++;
         }
     }
 

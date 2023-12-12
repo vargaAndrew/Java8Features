@@ -48,4 +48,11 @@ public class Employee {
     public void setDivision(String division) {
         this.division = division;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+            "name='" + name + '\'' +
+            '}';
+    }
 }

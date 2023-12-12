@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EmployeeServiceTest {
 
     private List<Employee> employees = Collections.unmodifiableList(Arrays.asList(
-            new Employee("John Doe", 180_000, null),
-            new Employee("Jane Doe", 200_000, "bbb-123"),
-            new Employee("Joe Doe", 100_000, null),
-            new Employee("John Smith", 100_000, "aaa-123")));
+        new Employee("John Doe", 180_000, null),
+        new Employee("Jane Doe", 200_000, "bbb-123"),
+        new Employee("Joe Doe", 100_000, null),
+        new Employee("John Smith", 100_000, "aaa-123")));
 
     private EmployeeService employeeService = new EmployeeService();
 
@@ -24,7 +24,11 @@ public class EmployeeServiceTest {
         List<Employee> generated = employeeService.generateEmployees("John Doe", 3);
 
         assertEquals(Arrays.asList("John Doe 0", "John Doe 1", "John Doe 2"),
-                generated.stream().map(Employee::getName).collect(Collectors.toList()));
+            generated.stream().map(Employee::getName)
+                .collect(Collectors.toList()));//az employee listat atkonvertaljuk listava
+        //kovetkezokeppen tortenik. Az employee listanak lekerjuk a streamjet utana a map metodussal atkonvertaljuk
+        // az employeeket egyesevel Stringge (getName method hivassal)
+        // majd osszegyujtjuk oket egy listaba
     }
 
     @Test

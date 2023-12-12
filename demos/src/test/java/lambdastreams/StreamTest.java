@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StreamTest {
 
     List<Employee> employees = Arrays.asList(
-            new Employee("John Doe"),
-            new Employee("Jane Doe"),
-            new Employee("Joe Doe"),
-            new Employee("John Smith")
+        new Employee("John Doe"),
+        new Employee("Jane Doe"),
+        new Employee("Joe Doe"),
+        new Employee("John Smith")
     );
 
     @Test
@@ -23,10 +23,10 @@ public class StreamTest {
         assertEquals(0L, Stream.empty().count());
 
         assertEquals(2L, Stream.of(new Employee("John Doe"),
-                new Employee("Jack Doe")).count());
+            new Employee("Jack Doe")).count());
 
         Stream<Employee> s = Stream.of(new Employee("John Doe"),
-                new Employee("Jack Doe"));
+            new Employee("Jack Doe"));
         assertEquals(2L, s.count());
 
 
@@ -36,17 +36,21 @@ public class StreamTest {
     @Test
     public void testMin() {
         Employee employee =
-                employees.stream().min(Comparator.comparing(Employee::getName))
-                        .get();
+            employees.stream().min(Comparator.comparing(
+                    Employee::getName)) //lambda kifejezest lehet a comparingnak atadni (Employee::getName)
+                .get();//testnel hasznalhatjuk a .get() et isPresent nelkul. Ha empty akkor elbukik a test, de ez nem
+        // is baj
         assertEquals("Jane Doe", employee.getName());
     }
 
     @Test
-    public void testFindFirst()
-    {
+    public void testFindFirst() {
         Employee employee =
-                employees.stream().findFirst().get();
+            employees.stream().findFirst().get(); //get azert kell, mivel Optionalt kell vissyaadni
+        //get helyett hasznalhatnak a .orElseThrow(itt egy prducert kell irni) azaz .orElseThrow(() -> new
+        // IllegalArgumentException) ekkor a fejlesytoeszkoy nem fog warningot dobni.
         assertEquals("John Doe", employee.getName());
+        //findFirst eseteben nem fogja a teljes streamot feldolgoyni, hanem ha megtalalja akkor le fog allni
     }
 
     @Test
