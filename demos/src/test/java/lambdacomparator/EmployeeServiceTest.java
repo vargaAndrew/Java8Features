@@ -11,7 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EmployeeServiceTest {
 
-    private List<Employee> employees = Collections.unmodifiableList(Arrays.asList(
+    private List<Employee> employees = Collections.unmodifiableList(
+        Arrays.asList( //ez egy nem modosithato lista ezert amikor a
+            //tesztesetnek atadom egy uj listat hozok letre (new ArrayList<>(this.employees)) atadva neki ezt a
+            // modosithatatlan listat
+            // ezert az elemek atmasolasra kerulnek egy uj listaba. Ez azert van, hogy a test adatokat ne rontsuk el
             new Employee("John Doe", 180_000, null),
             new Employee("Jane Doe", 200_000, "bbb-123"),
             new Employee("Joe Doe", 100_000, null),
@@ -48,7 +52,7 @@ public class EmployeeServiceTest {
 
     public List<String> toNames(List<Employee> employees) {
         List<String> names = new ArrayList<>();
-        for (Employee employee: employees) {
+        for (Employee employee : employees) {
             names.add(employee.getName());
         }
         return names;
