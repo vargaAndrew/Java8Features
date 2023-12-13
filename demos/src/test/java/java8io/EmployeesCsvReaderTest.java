@@ -3,7 +3,6 @@ package java8io;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,10 +31,14 @@ public class EmployeesCsvReaderTest {
     }
 
     @Test
-    public void testLargestCsvFiles() throws IOException {
+    public void testLargestCsvFiles() throws IOException { //itt sok filet hozunk letre ugyanis nem csak az adott
+        // konyvtarat, hanem az alkonyvtarakat is vegig kell nezni
         Files.createDirectory(tempDir.resolve("dir1"));
-        Files.write(tempDir.resolve("dir1/foo.csv"), "aaa".getBytes(StandardCharsets.UTF_8));
-        Files.write(tempDir.resolve("dir1/bar.csv"), "bbbbbb".getBytes(StandardCharsets.UTF_8));
+        Files.write(tempDir.resolve("dir1/foo.csv"), "aaa".getBytes(StandardCharsets.UTF_8)); //ide 3 byte-ot irunk aaa
+        Files.write(tempDir.resolve("dir1/bar.csv"),
+            "bbbbbb".getBytes(
+                StandardCharsets.UTF_8));//ide 6 byte-ot irunk bele bbbbbb. Ezt kell visszaadnia az implementacionak
+        // mivel 6 byte-ot tartalmaz
         Files.createFile(tempDir.resolve("dir1/not_a_csv.txt"));
         Files.createFile(tempDir.resolve("dir1/another_not_a_csv.docx"));
 
@@ -60,20 +63,20 @@ public class EmployeesCsvReaderTest {
     public void testReadEmployees() throws IOException {
         Path file = tempDir.resolve("employees.csv");
         Files.write(file, ("1,John Doe,180000\n" +
-                "2,Jane Doe,200000").getBytes(StandardCharsets.UTF_8));
+            "2,Jane Doe,200000").getBytes(StandardCharsets.UTF_8));
 
         List<Employee> employees = employeesCsvReader.readEmployees(file);
         assertEquals(Arrays.asList("John Doe", "Jane Doe"),
-                employees.stream().map(Employee::getName).collect(Collectors.toList()));
+            employees.stream().map(Employee::getName).collect(Collectors.toList()));
         assertEquals(Arrays.asList(180_000, 200_000),
-                employees.stream().map(Employee::getSalary).collect(Collectors.toList()));
+            employees.stream().map(Employee::getSalary).collect(Collectors.toList()));
     }
 
     @Test
     public void testReadDefaultEmployees() {
         List<Employee> employees = employeesCsvReader.readDefaultEmployees();
         assertEquals(Arrays.asList("John Doe", "Jane Doe", "Joe Doe", "John Smith"),
-                employees.stream().map(Employee::getName).collect(Collectors.toList()));
+            employees.stream().map(Employee::getName).collect(Collectors.toList()));
     }
 
 }

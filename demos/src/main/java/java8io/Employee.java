@@ -38,9 +38,10 @@ public class Employee {
         this.id = id;
     }
 
+    //itt van egy statikus factory metodus (egy Simple factory)
     public static Employee fromCsvLine(String line) {
-        String[] tokens = line.split(",");
-        long id = Long.parseLong(tokens[0]);
+        String[] tokens = line.split(",");//a parameterkent kapot String-et elvagja vesszonk alapjan
+        long id = Long.parseLong(tokens[0]);//utana az elso vesszoig tartozo reszt azt id-kent tarolja el
         String name = tokens[1];
         int salary = Integer.parseInt(tokens[2]);
         return new Employee(id, name, salary);
